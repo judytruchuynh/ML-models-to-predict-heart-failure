@@ -166,6 +166,25 @@ def df_compare_models(X_train, y_train, X_test, y_test):
 
 
 
+# def plot_model_performance(dataframe, metrics):
+#     fig, ax = plt.subplots()
+#     width = 0.2
+#     x_ = np.arange(len(dataframe["Model"]))
+
+#     for i, metric in enumerate(metrics):
+#         ax.bar(x_ + i*width - (len(metrics)-1)*width/2, dataframe[metric].values, width, label=metric)
+
+#     ax.set_title("Comparison among Models' Performance")
+#     ax.set_xlabel("Models")
+#     ax.set_ylabel("Performance Metrics")
+#     ax.set_xticks(x_)
+#     ax.set_xticklabels(dataframe["Model"])
+#     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+#     fig.autofmt_xdate(rotation=30)
+#     plt.show()
+
+
+
 def plot_model_performance(dataframe, metrics):
     fig, ax = plt.subplots()
     width = 0.2
@@ -173,6 +192,9 @@ def plot_model_performance(dataframe, metrics):
 
     for i, metric in enumerate(metrics):
         ax.bar(x_ + i*width - (len(metrics)-1)*width/2, dataframe[metric].values, width, label=metric)
+        # Add numbers to the bars
+        for j, value in enumerate(dataframe[metric].values):
+            ax.text(x_[j] + i*width - (len(metrics)-1)*width/2, value, f"{value:.2f}", ha='center', va='bottom')
 
     ax.set_title("Comparison among Models' Performance")
     ax.set_xlabel("Models")
@@ -182,9 +204,6 @@ def plot_model_performance(dataframe, metrics):
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
     fig.autofmt_xdate(rotation=30)
     plt.show()
-
-
-
 
 def significant_features_man_chi(df, target_col):
     Mann_Whitney_significant_features = []
